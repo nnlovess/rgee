@@ -163,18 +163,18 @@ mimicking how extract currently works." />
     <p>Extract values from a <code>ee$Image</code> at the
 locations of a geometry object. You can use <code>ee$Geometry$*</code>,
 <code>ee$Feature</code>, <code>ee$FeatureCollection</code>, sf  or sfc objects. This function
-mimicking how <a href='https://rdrr.io/pkg/raster/man/extract.html'>extract</a> currently works.</p>
+mimicking how extract currently works.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ee_extract</span>(
-  <span class='kw'>x</span>,
-  <span class='kw'>y</span>,
-  fun = <span class='kw'>ee</span><span class='op'>$</span><span class='kw'>Reducer</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(),
-  scale = <span class='kw'>NULL</span>,
-  sf = <span class='fl'>FALSE</span>,
-  quiet = <span class='fl'>FALSE</span>,
-  <span class='kw'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>ee_extract</span><span class='op'>(</span>
+  <span class='va'>x</span>,
+  <span class='va'>y</span>,
+  fun <span class='op'>=</span> <span class='va'>ee</span><span class='op'>$</span><span class='va'>Reducer</span><span class='op'>$</span><span class='fu'>mean</span><span class='op'>(</span><span class='op'>)</span>,
+  scale <span class='op'>=</span> <span class='cn'>NULL</span>,
+  sf <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  quiet <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -271,44 +271,44 @@ of its inputs.</p></li>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><span class='co'>if</span> (<span class='fl'>FALSE</span>) {
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/r-spatial/rgee'>rgee</a></span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://r-spatial.github.io/sf'>sf</a></span>)
+    <pre class="examples"><span class='kw'>if</span> <span class='op'>(</span><span class='cn'>FALSE</span><span class='op'>)</span> <span class='op'>{</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/r-spatial/rgee'>rgee</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>sf</span><span class='op'>)</span>
 
-<span class='fu'><a href='ee_Initialize.html'>ee_Initialize</a></span>()
+<span class='fu'><a href='ee_Initialize.html'>ee_Initialize</a></span><span class='op'>(</span><span class='op'>)</span>
 
 <span class='co'># Define a Image or ImageCollection: Terraclimate</span>
-<span class='kw'>terraclimate</span> <span class='op'>&lt;-</span> <span class='kw'>ee</span><span class='op'>$</span><span class='fu'>ImageCollection</span>(<span class='st'>"IDAHO_EPSCOR/TERRACLIMATE"</span>)<span class='op'>$</span>
-  <span class='fu'>filterDate</span>(<span class='st'>"2001-01-01"</span>, <span class='st'>"2002-01-01"</span>)<span class='op'>$</span>
-  <span class='fu'>map</span>(<span class='fu'>function</span>(<span class='kw'>x</span>){
-    <span class='kw'>date</span> <span class='op'>&lt;-</span> <span class='kw'>ee</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/Dates.html'>Date</a></span>(<span class='kw'>x</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/get.html'>get</a></span>(<span class='st'>"system:time_start"</span>))<span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/format.html'>format</a></span>(<span class='st'>'YYYY_MM_dd'</span>)
-    <span class='kw'>name</span> <span class='op'>&lt;-</span> <span class='kw'>ee</span><span class='op'>$</span><span class='kw'>String</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span>(<span class='st'>"Terraclimate_pp_"</span>, <span class='kw'>date</span>)
-    <span class='kw'>x</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/pkg/raster/man/select.html'>select</a></span>(<span class='st'>"pr"</span>)<span class='op'>$</span><span class='fu'>reproject</span>(<span class='st'>"EPSG:4326"</span>)<span class='op'>$</span><span class='fu'>set</span>(<span class='st'>"RGEE_NAME"</span>, <span class='kw'>name</span>)
-  })
+<span class='va'>terraclimate</span> <span class='op'>&lt;-</span> <span class='va'>ee</span><span class='op'>$</span><span class='fu'>ImageCollection</span><span class='op'>(</span><span class='st'>"IDAHO_EPSCOR/TERRACLIMATE"</span><span class='op'>)</span><span class='op'>$</span>
+  <span class='fu'>filterDate</span><span class='op'>(</span><span class='st'>"2001-01-01"</span>, <span class='st'>"2002-01-01"</span><span class='op'>)</span><span class='op'>$</span>
+  <span class='fu'>map</span><span class='op'>(</span><span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='va'>date</span> <span class='op'>&lt;-</span> <span class='va'>ee</span><span class='op'>$</span><span class='fu'>Date</span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='fu'>get</span><span class='op'>(</span><span class='st'>"system:time_start"</span><span class='op'>)</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>format</span><span class='op'>(</span><span class='st'>'YYYY_MM_dd'</span><span class='op'>)</span>
+    <span class='va'>name</span> <span class='op'>&lt;-</span> <span class='va'>ee</span><span class='op'>$</span><span class='va'>String</span><span class='op'>$</span><span class='fu'>cat</span><span class='op'>(</span><span class='st'>"Terraclimate_pp_"</span>, <span class='va'>date</span><span class='op'>)</span>
+    <span class='va'>x</span><span class='op'>$</span><span class='fu'>select</span><span class='op'>(</span><span class='st'>"pr"</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>reproject</span><span class='op'>(</span><span class='st'>"EPSG:4326"</span><span class='op'>)</span><span class='op'>$</span><span class='fu'>set</span><span class='op'>(</span><span class='st'>"RGEE_NAME"</span>, <span class='va'>name</span><span class='op'>)</span>
+  <span class='op'>}</span><span class='op'>)</span>
 
 <span class='co'># Define a geometry</span>
-<span class='kw'>nc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/sf/man/st_read.html'>st_read</a></span>(
-  dsn = <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span>(<span class='st'>"shape/nc.shp"</span>, package = <span class='st'>"sf"</span>),
-  stringsAsFactors = <span class='fl'>FALSE</span>,
-  quiet = <span class='fl'>TRUE</span>
-)
+<span class='va'>nc</span> <span class='op'>&lt;-</span> <span class='fu'>st_read</span><span class='op'>(</span>
+  dsn <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/system.file.html'>system.file</a></span><span class='op'>(</span><span class='st'>"shape/nc.shp"</span>, package <span class='op'>=</span> <span class='st'>"sf"</span><span class='op'>)</span>,
+  stringsAsFactors <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  quiet <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
 <span class='co'># Extract values</span>
-<span class='kw'>ee_nc_rain</span> <span class='op'>&lt;-</span> <span class='fu'>ee_extract</span>(
-  x = <span class='kw'>terraclimate</span>,
-  y = <span class='kw'>nc</span>,
-  scale = <span class='fl'>250</span>,
-  fun = <span class='kw'>ee</span><span class='op'>$</span><span class='kw'>Reducer</span><span class='op'>$</span><span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span>(),
-  sf = <span class='fl'>TRUE</span>
-)
+<span class='va'>ee_nc_rain</span> <span class='op'>&lt;-</span> <span class='fu'>ee_extract</span><span class='op'>(</span>
+  x <span class='op'>=</span> <span class='va'>terraclimate</span>,
+  y <span class='op'>=</span> <span class='va'>nc</span>,
+  scale <span class='op'>=</span> <span class='fl'>250</span>,
+  fun <span class='op'>=</span> <span class='va'>ee</span><span class='op'>$</span><span class='va'>Reducer</span><span class='op'>$</span><span class='fu'>mean</span><span class='op'>(</span><span class='op'>)</span>,
+  sf <span class='op'>=</span> <span class='cn'>TRUE</span>
+<span class='op'>)</span>
 
 <span class='co'># Spatial plot</span>
-<span class='fu'><a href='https://rdrr.io/pkg/sf/man/plot.html'>plot</a></span>(
-  <span class='kw'>ee_nc_rain</span>[<span class='st'>"X200110_pr"</span>],
-  main = <span class='st'>"2001 Jan Precipitation - Terraclimate"</span>,
-  reset = <span class='fl'>FALSE</span>
-)
-}
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.html'>plot</a></span><span class='op'>(</span>
+  <span class='va'>ee_nc_rain</span><span class='op'>[</span><span class='st'>"X200110_pr"</span><span class='op'>]</span>,
+  main <span class='op'>=</span> <span class='st'>"2001 Jan Precipitation - Terraclimate"</span>,
+  reset <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
+<span class='op'>}</span>
 </pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
